@@ -4,7 +4,6 @@ import flet as ft
 import sqlite3
 
 conn = sqlite3.connect("reading_tracker.db")
- 
 cursor = conn.cursor()
  
 createAuthorsTable = """
