@@ -9,7 +9,7 @@ cursor = conn.cursor()
 createAuthorsTable = """
                      CREATE TABLE IF NOT EXISTS Authors(
                      idAuthor INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                     name TEXT NOT NULL
+                     name TEXT NOT NULL UNIQUE
                      );
                      """
 
