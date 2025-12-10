@@ -20,7 +20,6 @@ createBooksTable = """
                     title TEXT NOT NULL,
                     pages INTEGER NOT NULL,
                     read INTEGER NOT NULL,
-                    image TEXT,
                     FOREIGN KEY (idAuthor) REFERENCES Authors(idAuthor)
                     );
                     """
@@ -141,25 +140,30 @@ def main(page: ft.Page):
         conn.close()
         return book_table
 
+    def validate_number(e):
+        # Allow only digits
+        e.control.value = "".join(c for c in e.control.value if c.isdigit())
+        page.update()
+
     name_field = ft.TextField(label="Book title")
-    pages_field = ft.TextField(label="Number of pages")
-    read_pages_field = ft.TextField(label="Pages read")
+    pages_field = ft.TextField(label="Number of pages", on_change=validate_number)
+    read_pages_field = ft.TextField(label="Pages read", on_change=validate_number)
     author_field = ft.TextField(label="Author name")
-    book_id = ft.TextField(label="ID: ", visible=False, width=90)
+    book_id = ft.TextField(label="ID: ", visible=False, width=90, on_change=validate_number)
 
     add_button = ft.ElevatedButton("Add Book", icon=ft.Icons.ADD, on_click=add_book)
     update_button = ft.ElevatedButton("Update Book", icon=ft.Icons.UPDATE, on_click=update_book)
-    delete_button = ft.ElevatedButton("Delete Book", icon=ft.Icons.DELETE, on_click=delete_book)
+    delete_button = ft.IconButton(icon=ft.Icons.DELETE, on_click=delete_book)
     submit_button = ft.ElevatedButton("Submit", icon=ft.Icons.CHECK, on_click=submit)
 
     table = load_table()
     table_row = ft.Row([table], alignment=ft.MainAxisAlignment.CENTER)
 
-    page.add(ft.Row([add_button, update_button, delete_button],
+    page.add(ft.Row([add_button, update_button],
                     alignment=ft.MainAxisAlignment.CENTER),
              ft.Row([name_field, author_field, book_id],
                     alignment=ft.MainAxisAlignment.START),
-             ft.Row([pages_field, read_pages_field, submit_button], alignment=ft.MainAxisAlignment.START),
+             ft.Row([pages_field, read_pages_field, submit_button, delete_button], alignment=ft.MainAxisAlignment.START),
              table_row)
 
 ft.app(target=main, assets_dir="assets")
