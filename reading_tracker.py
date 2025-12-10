@@ -3,6 +3,33 @@
 import flet as ft
 import sqlite3
 
+conn = sqlite3.connect("reading_tracker.db")
+ 
+cursor = conn.cursor()
+ 
+createAuthorsTable = """
+                     CREATE TABLE IF NOT EXISTS Authors(
+                     idAuthor INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                     name TEXT NOT NULL
+                     );
+                     """
+
+createBooksTable = """
+                    CREATE TABLE IF NOT EXISTS Books(
+                    idBooks INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    idAuthor INTEGER NOT NULL,
+                    title TEXT NOT NULL,
+                    pages INTEGER NOT NULL,
+                    read INTEGER NOT NULL,
+                    image TEXT,
+                    FOREIGN KEY (idAuthor) REFERENCES Authors(idAuthor)
+                    );
+                    """
+ 
+cursor.execute(createAuthorsTable)
+cursor.execute(createBooksTable)
+conn.close()
+
 def main(page: ft.Page):
     page.title = "Reading Tracker"
     page.theme_mode = ft.ThemeMode.LIGHT
