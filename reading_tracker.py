@@ -141,7 +141,6 @@ def main(page: ft.Page):
         return book_table
 
     def validate_number(e):
-        # Allow only digits
         e.control.value = "".join(c for c in e.control.value if c.isdigit())
         page.update()
 
