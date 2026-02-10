@@ -39,8 +39,7 @@ def main(page: ft.Page):
         bgcolor=ft.Colors.SURFACE_CONTAINER_HIGHEST,
         trailing=ft.Icon(ft.Icons.BOOK_OUTLINED),
         middle=ft.Text("Reading Tracker"),
-        brightness=ft.Brightness.LIGHT,
-    )
+        brightness=ft.Brightness.LIGHT)
 
     def empty_fields():
         name_field.value = ""
@@ -133,9 +132,7 @@ def main(page: ft.Page):
                     ft.DataCell(ft.Text(title)),
                     ft.DataCell(ft.Text(pages)),
                     ft.DataCell(ft.Text(read)),
-                    ft.DataCell(ft.Text(author))
-                ])
-            )
+                    ft.DataCell(ft.Text(author)) ]))
 
         conn.close()
         return book_table
@@ -165,4 +162,4 @@ def main(page: ft.Page):
              ft.Row([pages_field, read_pages_field, submit_button, delete_button], alignment=ft.MainAxisAlignment.START),
              table_row)
 
-ft.app(target=main, assets_dir="assets")
+ft.app(target=main)
